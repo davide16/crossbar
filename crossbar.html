@@ -1,0 +1,59 @@
+
+<script type="text/x-red" data-template-name="crossbar in">
+
+  <div class="form-row">
+       <label for="node-input-broker"><i class="fa fa-globe"></i> <span data-i18n="mqtt.label.broker"></span> Broker</label>
+       <input type="text" id="node-input-broker">
+   </div>
+
+   <div class="form-row">
+       <label for="node-input-realm"><i class="fa fa-tasks"></i> <span data-i18n="common.label.topic"></span> Realm</label>
+       <input type="text" id="node-input-realm">
+   </div>
+
+   <div class="form-row">
+       <label for="node-input-topic"><i class="fa fa-tasks"></i> <span data-i18n="common.label.topic"></span> Topic</label>
+       <input type="text" id="node-input-topic" data-i18n="[placeholder]common.label.topic">
+   </div>
+
+    <br/>
+
+    <div class="form-row">
+        <label for="node-input-name"><i class="fa fa-tag"></i> <span data-i18n="common.label.name"></span> Name</label>
+        <input type="text" id="node-input-name" data-i18n="[placeholder]common.label.name">
+    </div>
+</script>
+
+
+<!-- Next, some simple help text is provided for the node.                   -->
+<script type="text/x-red" data-help-name="crossbar in">
+
+   <p>WAMP crossbar input node. It allows to connect to a crossbar broker and subscribe to a topic.</p>
+   <p>Outputs an object called <code>msg</code> containing <code>msg.topic</code> and
+   <code>msg.payload</code>. msg.payload is a String.</p>
+</script>
+
+<!-- Finally, the node type is registered along with all of its properties   -->
+<!-- The example below shows a small subset of the properties that can be set-->
+<script type="text/javascript">
+    RED.nodes.registerType('crossbar in',{
+        category: 'input',      // the palette category
+        defaults: {             // defines the editable properties of the node
+            name: {value:""},   //  along with default values.
+            broker: {value:"ws://192.168.56.101:8080/ws", required:true},
+            topic: {value:"", required:true},
+            realm: {value:"realm1", required:true}
+        },
+        inputs:0,               // set the number of inputs - only 0 or 1
+        outputs:1,              // set the number of outputs - 0 to n
+        color: "#52D017",          // set icon color
+        // set the icon (held in icons dir below where you save the node)
+        icon: "myicon.png",     // saved in  icons/myicon.png
+        label: function() {     // sets the default label contents
+            return this.name||this.topic||"crossbar in";
+        },
+        labelStyle: function() { // sets the class to apply to the label
+            return this.name?"node_label_italic":"";
+        }
+    });
+</script>
